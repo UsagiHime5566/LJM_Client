@@ -1358,8 +1358,8 @@ Canvas:
   m_GameObject: {fileID: 1810212613}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4923,6 +4923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2401278360861317378}
   - component: {fileID: 2401278360861317381}
+  - component: {fileID: 2401278360861317382}
   m_Layer: 5
   m_Name: Painter Controller
   m_TagString: Untagged
@@ -4966,6 +4967,19 @@ MonoBehaviour:
   drawOtherRtMat: {fileID: 2100000, guid: 9560ea9e40d094ce297d8e9184266a13, type: 2}
   matForCopy: {fileID: 2100000, guid: 38f713e6312ea4963a996a45ab05e09c, type: 2}
   canvasCamera: {fileID: 963194227}
+--- !u!114 &2401278360861317382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2401278360861317379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e8d3ad3a3adc348adfeea8e38dea03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintLight: {fileID: 2401278360861317381}
 --- !u!114 &2401278360889722001
 MonoBehaviour:
   m_ObjectHideFlags: 0

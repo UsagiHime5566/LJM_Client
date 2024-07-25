@@ -24,7 +24,11 @@ public class PaintLight : MonoBehaviour
     [Header("Canvas Camera")]
     public Camera canvasCamera;
 
-    bool _isMouseDown =false;
+    bool _isMouseDown = false;
+
+    public System.Action<Vector2> OnDrawStart;
+    public System.Action<Vector2> OnDrawDrag;
+    public System.Action OnDrawEnd;
 
     [EasyButtons.Button]
     void BindBrushToggles(){
@@ -86,7 +90,7 @@ public class PaintLight : MonoBehaviour
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(painterCanvas.transform as RectTransform, Input.mousePosition, canvasCamera, out pos))
             {
                 painterCanvas.ClickDraw(pos, canvasCamera, painterCanvas.penMat.mainTexture, painterCanvas.brushScale, painterCanvas.penMat, painterCanvas.renderTexture, true);
-                Debug.Log("mouse down");
+                OnDrawStart?.Invoke(pos);
             }
         }
         else if (Input.GetMouseButton(0))
@@ -98,14 +102,28 @@ public class PaintLight : MonoBehaviour
                 if (RectTransformUtility.ScreenPointToLocalPointInRectangle(painterCanvas.transform as RectTransform, Input.mousePosition, canvasCamera, out pos))
                 {
                     painterCanvas.Drawing(pos, canvasCamera, painterCanvas.renderTexture, false, true);
+                    OnDrawDrag?.Invoke(pos);
                 }
             }
         }
         else if (Input.GetMouseButtonUp(0) && _isMouseDown)
         {
             painterCanvas.EndDraw();
+            OnDrawEnd?.Invoke();
             _isMouseDown = false;
         }
+    }
+
+    public void DrawStartLight(Vector2 pos){
+        painterCanvas.ClickDraw(pos, canvasCamera, painterCanvas.penMat.mainTexture, painterCanvas.brushScale, painterCanvas.penMat, painterCanvas.renderTexture, true);
+    }
+
+    public void DrawDragLight(Vector2 pos){
+        painterCanvas.Drawing(pos, canvasCamera, painterCanvas.renderTexture, false, true);
+    }
+
+    public void DrawEndLight(){
+        painterCanvas.EndDraw();
     }
 
     public void NewDrawFoNewUser(){
