@@ -14,9 +14,9 @@ public class PaintLight : MonoBehaviour
     public ToggleGroup sizeBar;
     public List<Toggle> sizeToggles;
     public List<float> sizeValues;
-    public Button BTN_Clear;
 
     [Header("Paint Canvas")]
+    public Color DefaultColor;
 	public Painter painterCanvas;
     public Material drawOtherRtMat;
     public Material matForCopy;
@@ -24,6 +24,7 @@ public class PaintLight : MonoBehaviour
     [Header("Canvas Camera")]
     public Camera canvasCamera;
 
+    public bool canDrawing;
     bool _isMouseDown = false;
 
     public System.Action<Vector2> OnDrawStart;
@@ -58,10 +59,6 @@ public class PaintLight : MonoBehaviour
             });
         }
 
-        BTN_Clear?.onClick.AddListener(() => {
-            painterCanvas.ClearCanvas();
-        });
-
         void OnBrushToggleEvent(bool val){
             foreach(Toggle toggle in brushBar.ActiveToggles()){
 
@@ -81,6 +78,15 @@ public class PaintLight : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonUp(0) && _isMouseDown)
+        {
+            painterCanvas.EndDraw();
+            OnDrawEnd?.Invoke();
+            _isMouseDown = false;
+        }
+
+        if(!canDrawing) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             _isMouseDown = true;
@@ -93,7 +99,7 @@ public class PaintLight : MonoBehaviour
                 OnDrawStart?.Invoke(pos);
             }
         }
-        else if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             if (_isMouseDown)
             {
@@ -105,12 +111,6 @@ public class PaintLight : MonoBehaviour
                     OnDrawDrag?.Invoke(pos);
                 }
             }
-        }
-        else if (Input.GetMouseButtonUp(0) && _isMouseDown)
-        {
-            painterCanvas.EndDraw();
-            OnDrawEnd?.Invoke();
-            _isMouseDown = false;
         }
     }
 
@@ -124,6 +124,15 @@ public class PaintLight : MonoBehaviour
 
     public void DrawEndLight(){
         painterCanvas.EndDraw();
+    }
+
+    public void DefaultUserSettingLight(){
+        painterCanvas.brushScale = sizeValues[0];
+        painterCanvas.canvasMat.SetFloat("_Alpha", 1);
+        painterCanvas.canvasMat.SetTexture("_MaskTex", null);
+        painterCanvas.penColor = DefaultColor;
+        drawOtherRtMat.SetFloat("_Alpha", 1);
+        drawOtherRtMat.SetVector("_Color", Color.white);
     }
 
     public void NewDrawFoNewUser(){

@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using HimeLib;
 using System.Threading.Tasks;
 
 public class PainterMemory : MonoBehaviour
 {
+    public Button BTN_Upload;
+    public Button BTN_Clear;
+    public RawImage IMG_BackImage;
     public PaintLight paintLight;
-
     public PaintData paintData;
 
     PaintStroke currentStroke;
@@ -31,7 +34,8 @@ public class PainterMemory : MonoBehaviour
     }
 
     [EasyButtons.Button]
-    void Clear(){
+    public async void Clear(){
+        await Task.Delay(1);
         paintData = new PaintData();
         paintLight.ClearDraw();
     }
@@ -43,6 +47,14 @@ public class PainterMemory : MonoBehaviour
         paintLight.OnDrawEnd += DrawEnd;
 
         paintData = new PaintData();
+
+        BTN_Upload.onClick.AddListener(Upload);
+        BTN_Clear.onClick.AddListener(Clear);
+    }
+
+    void Upload(){
+        RenderTexture rt = paintLight.CombineTextures(IMG_BackImage.texture);
+        LJMGameManager.instance.SaveAndSend(rt);
     }
 
     void DrawStart(Vector2 pos){
