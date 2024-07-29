@@ -53,8 +53,8 @@ public class PainterMemory : MonoBehaviour
     }
 
     void Upload(){
-        RenderTexture rt = paintLight.CombineTextures(IMG_BackImage.texture);
-        LJMGameManager.instance.SaveAndSend(rt);
+        //RenderTexture rt = paintLight.CombineTextures(IMG_BackImage.texture);
+        //LJMGameManager.instance.SaveAndSend(rt);
     }
 
     void DrawStart(Vector2 pos){

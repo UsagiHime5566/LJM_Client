@@ -12,7 +12,6 @@ public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
     public string receiverIPAddress; // 接收端的IP地址
     public int oscPort = 25566;
     public int tcpPort = 25544;
-    public List<int> ports = new List<int>(){25560, 25561}; // 通訊端口
 
     public void SendStart_OSC(){
         // IP address, port number

@@ -24,7 +24,7 @@ public class StrokeReader : HimeLib.SingletonMono<StrokeReader>
         string compressedJson = CompressString(jsonString);
 
         // 將JSON字符串儲存到本地的txt文件上
-        SaveToFile(compressedJson, "strokeData.txt");
+        // SaveToFile(compressedJson, "strokeData.txt");
 
         ESNetwork.instance.SendStrokeToDisplay(compressedJson);
     }

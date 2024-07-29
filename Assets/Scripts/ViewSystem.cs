@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ViewSystem : MonoBehaviour
 {
+    public InputField INP_ServerIP;
+
     // public InputField INP_IdleToPaint;
     // public InputField INP_IdleSendToTitle;
     // public InputField INP_IdleToAd;
@@ -12,6 +14,14 @@ public class ViewSystem : MonoBehaviour
     // public InputField INP_OutputDrawPath;
     // public InputField INP_TargetIP;
     // public Toggle TG_UseNetMode;
+
+    void Start(){
+        INP_ServerIP.onValueChanged.AddListener(x => {
+            ESNetwork.instance.receiverIPAddress = x;
+            SystemConfig.Instance.SaveData("ServerIP", x);
+        });
+        INP_ServerIP.text = SystemConfig.Instance.GetData<string>("ServerIP", "127.0.0.1");
+    }
 
     // void Start()
     // {
