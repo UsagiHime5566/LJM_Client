@@ -16,6 +16,11 @@ public class ViewSystem : MonoBehaviour
     // public Toggle TG_UseNetMode;
 
     void Start(){
+
+        #if UNITY_STANDALONE_WIN
+            Screen.SetResolution(960, 540, FullScreenMode.Windowed);
+        #endif
+
         INP_ServerIP.onValueChanged.AddListener(x => {
             ESNetwork.instance.receiverIPAddress = x;
             SystemConfig.Instance.SaveData("ServerIP", x);
