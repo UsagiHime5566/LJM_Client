@@ -17,7 +17,7 @@ public class PainterMemory : MonoBehaviour
     PaintStroke currentStroke;
 
     [EasyButtons.Button]
-    async void Replay(){
+    public async void Replay(){
         paintLight.ClearDraw();
         if(paintData == null) return;
 
@@ -59,15 +59,25 @@ public class PainterMemory : MonoBehaviour
 
     void DrawStart(Vector2 pos){
         currentStroke = new PaintStroke();
-        currentStroke.start = pos;
+        currentStroke.start = TruncateVector2(pos);
     }
 
     void DrawDrag(Vector2 pos){
-        currentStroke.drag.Add(pos);
+        currentStroke.drag.Add(TruncateVector2(pos));
     }
 
     void DrawEnd(){
         paintData.strokes.Add(currentStroke);
+    }
+
+    Vector2 TruncateVector2(Vector2 value)
+    {
+        // 計算無條件捨去至小數點後四位
+        float x = Mathf.Floor(value.x * 1000) / 1000;
+        float y = Mathf.Floor(value.y * 1000) / 1000;
+
+        // 將結果轉換回float
+        return new Vector2(x, y);
     }
 }
 

@@ -11,6 +11,7 @@ public class PageTitle : PageBase
     {
         BTN_Start.onClick.AddListener(() => {
             LJMPageManager.instance.GotoPage(1);
+            ESNetwork.instance.SendStart_OSC();
         });
 
         BTN_ViewStatus.onClick.AddListener(ShowStatus);
@@ -18,6 +19,7 @@ public class PageTitle : PageBase
 
     void ShowStatus(){
         Debug.Log("顯示聯屬");
+        ESNetwork.instance.SendAffiliated_OSC();
     }
 
     // Update is called once per frame
