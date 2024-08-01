@@ -13,6 +13,10 @@ public class PageSign : PageBase
     public CanvasGroup Draw_LeafAlpha;
     public PaintLight paintLight;
     public PainterMemory painterMemory;
+
+    public CanvasGroup paintTip;
+
+    [Header("飛葉動畫")]
     public Vector2 FlyPosition;
     public float FlySecond;
     public Ease easeType;
@@ -23,6 +27,7 @@ public class PageSign : PageBase
             painterMemory.Clear();
             Draw_Leaf.anchoredPosition = Vector2.zero;
             Draw_LeafAlpha.alpha = 1;
+            paintTip.alpha = 1;
             await Task.Delay(100);
             paintLight.canDrawing = true;
         };
@@ -38,5 +43,9 @@ public class PageSign : PageBase
             StrokeReader.instance.CreateJSON();
             ESNetwork.instance.SendFinSign_OSC();
         });
+
+        paintLight.OnDrawStart += x => {
+            paintTip.alpha = 0;
+        };
     }
 }

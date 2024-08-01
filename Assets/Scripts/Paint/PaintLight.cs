@@ -4,15 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using HimeLib;
 
+
+//Only Single color Draw version
 public class PaintLight : MonoBehaviour
 {
     [Header("Setting")]
-	public ToggleGroup brushBar;
-    public List<Toggle> brushToggles;
-	public ToggleGroup colorBar;
-    public List<Toggle> colorToggles;
-    public ToggleGroup sizeBar;
-    public List<Toggle> sizeToggles;
     public List<float> sizeValues;
 
     [Header("Paint Canvas")]
@@ -24,59 +20,14 @@ public class PaintLight : MonoBehaviour
     [Header("Canvas Camera")]
     public Camera canvasCamera;
 
-    public bool canDrawing;
-    bool _isMouseDown = false;
-
     public System.Action<Vector2> OnDrawStart;
     public System.Action<Vector2> OnDrawDrag;
     public System.Action OnDrawEnd;
 
-    [EasyButtons.Button]
-    void BindBrushToggles(){
-        brushToggles = new List<Toggle>(brushBar.GetComponentsInChildren<Toggle>());
-        colorToggles = new List<Toggle>(colorBar.GetComponentsInChildren<Toggle>());
-        sizeToggles = new List<Toggle>(sizeBar.GetComponentsInChildren<Toggle>());
-    }
+    public bool canDrawing;
+    bool _isMouseDown = false;
 
-    void Start()
-    {
-        foreach (Toggle toggle in brushToggles)
-        {
-            //toggle.onValueChanged.AddListener(OnBrushToggleEvent);
-        }
-        foreach (Toggle toggle in colorToggles)
-        {
-            toggle.onValueChanged.AddListener(OnColorToggleEvent);
-        }
-        for (int i = 0; i < sizeToggles.Count; i++)
-        {
-            int v = i;
-            sizeToggles[v].onValueChanged.AddListener(x => {
-                if(x){
-                    painterCanvas.brushScale = sizeValues[v];
-                }
-                
-            });
-        }
-
-        void OnBrushToggleEvent(bool val){
-            foreach(Toggle toggle in brushBar.ActiveToggles()){
-
-                //Set pen texture.
-                painterCanvas.penMat.mainTexture = toggle.GetComponent<Image>().sprite.texture;
-                break;
-            }
-        }
-
-        void OnColorToggleEvent(bool val){
-            foreach(Toggle toggle in colorBar.ActiveToggles()){
-                painterCanvas.penColor = toggle.GetComponent<Image>().color;
-                break;
-            }
-        }
-    }
-
-    void Update()
+     void Update()
     {
         if (Input.GetMouseButtonUp(0) && _isMouseDown)
         {
@@ -131,18 +82,6 @@ public class PaintLight : MonoBehaviour
         painterCanvas.canvasMat.SetFloat("_Alpha", 1);
         painterCanvas.canvasMat.SetTexture("_MaskTex", null);
         painterCanvas.penColor = DefaultColor;
-        drawOtherRtMat.SetFloat("_Alpha", 1);
-        drawOtherRtMat.SetVector("_Color", Color.white);
-    }
-
-    public void NewDrawFoNewUser(){
-        painterCanvas.brushScale = sizeValues[0];
-        sizeToggles[0].isOn = true;
-        painterCanvas.canvasMat.SetFloat("_Alpha", 1);
-        painterCanvas.penColor = Color.white;
-        colorToggles[0].isOn = true;
-        painterCanvas.canvasMat.SetTexture("_MaskTex", null);
-        painterCanvas.ClearCanvas();
         drawOtherRtMat.SetFloat("_Alpha", 1);
         drawOtherRtMat.SetVector("_Color", Color.white);
     }
