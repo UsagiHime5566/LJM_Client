@@ -30,12 +30,14 @@ public class PageSign : PageBase
             paintTip.alpha = 1;
             await Task.Delay(100);
             paintLight.canDrawing = true;
+            BTN_Sumbit.interactable = true;
         };
         OnPageHide += () => {
             paintLight.canDrawing = false;
         };
 
         BTN_Sumbit.onClick.AddListener(async () => {
+            BTN_Sumbit.interactable = false;
             Draw_Leaf.DOAnchorPos(FlyPosition, FlySecond).SetEase(easeType);
             Draw_LeafAlpha.DOFade(0, FlySecond).SetEase(easeType);
             await Task.Delay(2000);
