@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using DG.Tweening;
 
 
@@ -14,6 +15,7 @@ public class PageSign : PageBase
     public PaintLight paintLight;
     public PainterMemory painterMemory;
 
+    public VideoPlayer paintVideo;
     public CanvasGroup paintTip;
 
     [Header("飛葉動畫")]
@@ -28,6 +30,7 @@ public class PageSign : PageBase
             Draw_Leaf.anchoredPosition = Vector2.zero;
             Draw_LeafAlpha.alpha = 1;
             paintTip.alpha = 1;
+            paintVideo.Play();
             await Task.Delay(100);
             paintLight.canDrawing = true;
             BTN_Sumbit.interactable = true;
@@ -48,6 +51,7 @@ public class PageSign : PageBase
 
         paintLight.OnDrawStart += x => {
             paintTip.alpha = 0;
+            paintVideo.Stop();
         };
     }
 }

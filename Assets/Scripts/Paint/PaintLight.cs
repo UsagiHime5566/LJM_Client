@@ -27,8 +27,54 @@ public class PaintLight : MonoBehaviour
     public bool canDrawing;
     bool _isMouseDown = false;
 
-     void Update()
+    void Update()
     {
+        // // 遍历所有触控点
+        // for (int i = 0; i < Input.touchCount; i++)
+        // {
+        //     Touch touch = Input.GetTouch(i);
+
+        //     // 获取触控点的唯一标识符
+        //     int touchId = touch.fingerId;
+
+        //     if (touch.phase == TouchPhase.Began)
+        //     {
+        //         // 记录起点
+        //         if (!touchDataDict.ContainsKey(touchId))
+        //         {
+        //             touchDataDict[touchId] = new TouchData();
+        //         }
+        //         touchDataDict[touchId].startPoint = touch.position;
+        //         Debug.Log("Touch " + touchId + " began at " + touch.position);
+        //     }
+        //     else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+        //     {
+        //         // 记录拖曳点
+        //         if (touchDataDict.ContainsKey(touchId))
+        //         {
+        //             touchDataDict[touchId].dragPoints.Add(touch.position);
+        //             Debug.Log("Touch " + touchId + " moved to " + touch.position);
+        //         }
+        //     }
+        //     else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+        //     {
+        //         // 记录终点
+        //         if (touchDataDict.ContainsKey(touchId))
+        //         {
+        //             touchDataDict[touchId].endPoint = touch.position;
+        //             Debug.Log("Touch " + touchId + " ended at " + touch.position);
+
+        //             // 在这里处理完成的触控数据，例如打印或存储
+        //             PrintTouchData(touchId);
+
+        //             // 移除记录的数据
+        //             touchDataDict.Remove(touchId);
+        //         }
+        //     }
+        // }
+
+
+        //#if !UNITY_ANDROID
         if (Input.GetMouseButtonUp(0) && _isMouseDown)
         {
             painterCanvas.EndDraw();
@@ -63,6 +109,7 @@ public class PaintLight : MonoBehaviour
                 }
             }
         }
+        //#endif
     }
 
     public void DrawStartLight(Vector2 pos){

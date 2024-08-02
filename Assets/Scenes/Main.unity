@@ -1902,7 +1902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ed3792011459d49ac11435cce33509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 35
+  WaitTime: 55
   IMG_Remain: {fileID: 0}
   IMG_ShingText: {fileID: 834998605}
   FadeTime: 1.5
@@ -2705,6 +2705,7 @@ MonoBehaviour:
   Draw_LeafAlpha: {fileID: 1800663918}
   paintLight: {fileID: 1739749772}
   painterMemory: {fileID: 1739749771}
+  paintVideo: {fileID: 583511247}
   paintTip: {fileID: 583511246}
   FlyPosition: {x: 0, y: 1080}
   FlySecond: 2
