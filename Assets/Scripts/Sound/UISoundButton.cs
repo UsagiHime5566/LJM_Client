@@ -7,29 +7,29 @@ using UnityEngine.EventSystems;
 public class UISoundButton : MonoBehaviour, IPointerClickHandler
 {
     public Button BTN_Raw;
-    //public Toggle BTN_Toggle;
+    public int BTNType = 0;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(BTN_Raw == null){
-            ESSoundManager.instance.PlayButton();
-        }
+        // if(BTN_Raw == null){
+        //     ESSoundManager.instance.PlayButton();
+        // }
     }
 
     void Awake(){
         BTN_Raw = GetComponent<Button>();
-        //BTN_Toggle = GetComponent<Toggle>();
     }
 
     void Start()
     {
 
         BTN_Raw?.onClick.AddListener(() => {
-            ESSoundManager.instance.PlayButton();
+            if(BTNType == 0)
+                ESSoundManager.instance.PlayStartGame();
+            if(BTNType == 1)
+                ESSoundManager.instance.PlayButton();
+            if(BTNType == 2)
+                ESSoundManager.instance.PlaySubmit();
         });
-
-        // BTN_Toggle?.onValueChanged.AddListener(x => {
-        //     ESSoundManager.instance.PlayButton();
-        // });
     }
 }

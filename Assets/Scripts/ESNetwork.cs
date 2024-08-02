@@ -37,6 +37,14 @@ public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
         }
     }
 
+    public void SendHome_OSC(){
+        // IP address, port number
+        using (var client = new OscClient(receiverIPAddress, oscPort))
+        {
+            client.Send("/Home");
+        }
+    }
+
     public async void SendStrokeToDisplay(string data){
         byte[] bytesToSend = Encoding.UTF8.GetBytes(data);
         await SendFileAsync(bytesToSend);

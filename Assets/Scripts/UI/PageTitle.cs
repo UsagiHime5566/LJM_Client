@@ -19,6 +19,7 @@ public class PageTitle : PageBase
 
     void ShowStatus(){
         Debug.Log("顯示聯屬");
+        LJMPageManager.instance.GotoPage(3);
         ESNetwork.instance.SendAffiliated_OSC();
     }
 

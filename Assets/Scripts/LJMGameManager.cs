@@ -12,6 +12,7 @@ public class LJMGameManager : HimeLib.SingletonMono<LJMGameManager>
     void Start()
     {
         OutputDrawPath = Application.dataPath;
+        Application.targetFrameRate = 60;
     }
 
     public void SaveAndSend(RenderTexture RenderTextureRef){
