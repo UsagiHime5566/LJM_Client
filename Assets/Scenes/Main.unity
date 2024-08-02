@@ -1592,7 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ed3792011459d49ac11435cce33509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 30
+  WaitTime: 35
   IMG_Remain: {fileID: 0}
   IMG_ShingText: {fileID: 834998605}
   FadeTime: 1.5
