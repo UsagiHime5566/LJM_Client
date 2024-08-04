@@ -13,12 +13,22 @@ public class SystemLayout : SingletonMono<SystemLayout>
     [Header("選單內容放置容器")] public CanvasGroup ContentCanvas;
     [Header("需一起隱藏物件")] public List<GameObject> needHides;
     public bool isActive => ContentCanvas.blocksRaycasts;
+
+    public float clickInTime = 5;
+
+    [Header("Runtime")]
+    [SerializeField] float resetTimeRemain = 5;
+    [SerializeField] int clickIndex = 0;
     
     async void Start()
     {
         BTN_Option_Open.onClick.AddListener(delegate {
-            ShowOption(true);
+            clickIndex++;
 
+            if(clickIndex > 5){
+                ShowOption(true);
+                clickIndex = 0;
+            }
         });
 
         BTN_Option_Close.onClick.AddListener(delegate {
@@ -37,6 +47,12 @@ public class SystemLayout : SingletonMono<SystemLayout>
     {
         if(Input.GetKeyDown(KeyCode.F8)){
             ShowOption(!isActive);
+        }
+
+        resetTimeRemain -= Time.deltaTime;
+        if(resetTimeRemain < 0){
+            resetTimeRemain = clickInTime;
+            clickIndex = 0;
         }
     }
 
