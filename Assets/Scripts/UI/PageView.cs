@@ -22,5 +22,17 @@ public class PageView : PageBase
         BTN_PageRight.onClick.AddListener(() => {
             ESNetwork.instance.SendPageRight_OSC();
         });
+
+        OnPageShow += () => {
+            ESNetwork.instance.SendHandShake();
+        };
+    }
+
+    public void SetLeftArrow(int i){
+        BTN_PageLeft.interactable = i == 1 ? true : false;
+    }
+
+    public void SetRightArrow(int i){
+        BTN_PageRight.interactable = i == 1 ? true : false;
     }
 }

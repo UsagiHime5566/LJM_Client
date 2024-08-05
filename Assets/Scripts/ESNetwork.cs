@@ -11,6 +11,7 @@ using System.Text;
 public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
 {
     public string receiverIPAddress; // 接收端的IP地址
+    public int handShakePort = 25588;
     public int oscPort = 25566;
     public int tcpPort = 25544;
 
@@ -23,6 +24,13 @@ public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
         BTN_SayOn?.onClick.AddListener(BrocastSayOn);
         BTN_SayOff?.onClick.AddListener(BrocastSayOff);
         BTN_Home?.onClick.AddListener(BrocastHome);
+    }
+
+    public void SendHandShake(){
+        using (var client = new OscClient(receiverIPAddress, handShakePort))
+        {
+            client.Send("/hello");
+        }
     }
 
     public void SendStart_OSC(){
