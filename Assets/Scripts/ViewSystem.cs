@@ -7,6 +7,10 @@ public class ViewSystem : MonoBehaviour
 {
     public InputField INP_ServerIP;
 
+    public Painter painter;
+    public PaintLight paintLight;
+    public InputField INP_Size;
+
     // public InputField INP_IdleToPaint;
     // public InputField INP_IdleSendToTitle;
     // public InputField INP_IdleToAd;
@@ -26,6 +30,15 @@ public class ViewSystem : MonoBehaviour
             SystemConfig.Instance.SaveData("ServerIP", x);
         });
         INP_ServerIP.text = SystemConfig.Instance.GetData<string>("ServerIP", "127.0.0.1");
+
+        INP_Size?.onValueChanged.AddListener(x => {
+            if(float.TryParse(x, out float val)){
+                paintLight.sizeValues[0] = val;
+                painter.brushScale = val;
+                SystemConfig.Instance.SaveData("ssize", x);
+            }
+        });
+        if(INP_Size) INP_Size.text = SystemConfig.Instance.GetData<string>("ssize", "0.5");
     }
 
     // void Start()

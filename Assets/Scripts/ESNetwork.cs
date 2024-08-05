@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections.Generic;
 using System.Net;
@@ -12,6 +13,17 @@ public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
     public string receiverIPAddress; // 接收端的IP地址
     public int oscPort = 25566;
     public int tcpPort = 25544;
+
+    [Header("記者會模式")]
+    public Button BTN_SayOn;
+    public Button BTN_SayOff;
+    public Button BTN_Home;
+
+    void Start(){
+        BTN_SayOn?.onClick.AddListener(BrocastSayOn);
+        BTN_SayOff?.onClick.AddListener(BrocastSayOff);
+        BTN_Home?.onClick.AddListener(BrocastHome);
+    }
 
     public void SendStart_OSC(){
         // IP address, port number
@@ -58,6 +70,25 @@ public class ESNetwork : HimeLib.SingletonMono<ESNetwork>
         using (var client = new OscClient(receiverIPAddress, oscPort))
         {
             client.Send("/PageRight");
+        }
+    }
+
+    public void BrocastSayOn(){
+        using (var client = new OscClient(receiverIPAddress, oscPort))
+        {
+            client.Send("/BrocastOn");
+        }
+    }
+    public void BrocastSayOff(){
+        using (var client = new OscClient(receiverIPAddress, oscPort))
+        {
+            client.Send("/BrocastOff");
+        }
+    }
+    public void BrocastHome(){
+        using (var client = new OscClient(receiverIPAddress, oscPort))
+        {
+            client.Send("/BrocastHome");
         }
     }
 
