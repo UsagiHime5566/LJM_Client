@@ -29,7 +29,7 @@ public class ViewSystem : MonoBehaviour
             ESNetwork.instance.receiverIPAddress = x;
             SystemConfig.Instance.SaveData("ServerIP", x);
         });
-        INP_ServerIP.text = SystemConfig.Instance.GetData<string>("ServerIP", "127.0.0.1");
+        INP_ServerIP.text = SystemConfig.Instance.GetData<string>("ServerIP", "192.168.137.1");
 
         INP_Size?.onValueChanged.AddListener(x => {
             if(float.TryParse(x, out float val)){
@@ -38,7 +38,7 @@ public class ViewSystem : MonoBehaviour
                 SystemConfig.Instance.SaveData("ssize", x);
             }
         });
-        if(INP_Size) INP_Size.text = SystemConfig.Instance.GetData<string>("ssize", "0.5");
+        if(INP_Size) INP_Size.text = SystemConfig.Instance.GetData<string>("ssize", "0.2");
     }
 
     // void Start()
